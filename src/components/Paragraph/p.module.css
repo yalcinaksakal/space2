@@ -1,0 +1,16 @@
+.p {
+  position: fixed;
+  bottom: 0;
+  left: 5px;
+  color: whitesmoke;
+  font-size: 10px;
+  user-select: none;
+  opacity: 0.6;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.p:hover {
+  opacity: 1;
+  transform: scale(2) translate(60px, -20px);
+}
