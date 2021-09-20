@@ -2,15 +2,15 @@ import styles from "./p.module.css";
 
 const Paragraph = () => (
   <p className={styles.p}>
-    WASD to rotate cam vertically and horizontally
-    <br />Q forward, E backward <br />
-    Arrows move the ship
-    <br />R resets camera <br />
-    Left click (touch) rotates the camera
+    Move: Arrow keys, Q and E
     <br />
-    Right click (a pair of touches) pans the camera
+    Rotate cam: WASD, left click
     <br />
-    Zoom in out enabled
+    Pan cam: Right click
+    <br />
+    Zoom: Mouse wheel
+    <br />
+    Reset: R
   </p>
 );
 export default Paragraph;

@@ -12,5 +12,5 @@
 
 .p:hover {
   opacity: 1;
-  transform: scale(2) translate(60px, -20px);
+  transform: scale(2) translate(30px, -20px);
 }
