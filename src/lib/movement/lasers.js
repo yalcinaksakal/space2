@@ -1,8 +1,8 @@
 const moveLasers = (lasers, scene) => {
   for (const l of lasers) {
-    l.laser.position.z += 30;
+    l.laser.position.z += 100;
 
-    l.laser.position.y += 30 * l.factor;
+    l.laser.position.y += 100 * l.factor;
   }
 
   let i = 0;

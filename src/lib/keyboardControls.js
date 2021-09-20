@@ -1,17 +1,29 @@
-import { PositionalAudio, Vector3 } from "three";
+import { PositionalAudio, Vector3, Frustum, Matrix4 } from "three";
 import { rotationMap, MOVEMENT_MAP as movementMap } from "../config/content";
 import createLaser from "./laser/laser";
 
 const keyboardControls = (code, controls, model, cam, isMoving) => {
   if (!model) return;
   //look directions.
+  if (code === "KeyR") controls.reset();
   if (["KeyW", "KeyS", "KeyA", "KeyD"].includes(code)) {
-    const { x, y, z } = model.position;
-    cam.position.set(x, y + 300, z - 1200);
-    controls.target.set(x, y, z);
     const { degree, isHorizantal } = rotationMap[code];
     controls.rotate(degree, isHorizantal);
     controls.update();
+
+    // const frustum = new Frustum();
+    // frustum.setFromProjectionMatrix(
+    //   new Matrix4().multiplyMatrices(
+    //     cam.projectionMatrix,
+    //     cam.matrixWorldInverse
+    //   )
+    // );
+    // //check if object will be in frustum
+    // if (!frustum.containsPoint(model.position)) {
+    //   controls.rotate(-degree, isHorizantal);
+    //   controls.update();
+    // }
+
     return;
   }
   if (!movementMap[code]) return;

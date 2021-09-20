@@ -1,4 +1,11 @@
-import { CylinderGeometry, MeshLambertMaterial, Mesh } from "three";
+import {
+  CylinderGeometry,
+  MeshLambertMaterial,
+  Mesh,
+  RingBufferGeometry,
+  MeshBasicMaterial,
+  DoubleSide,
+} from "three";
 import { DEGREE } from "../../config/content";
 
 const createLaser = (x, y, z, scene, rotX) => {
@@ -17,6 +24,19 @@ const createLaser = (x, y, z, scene, rotX) => {
   scene.add(cylinder);
 
   return { laser: cylinder, factor };
+};
+
+export const createTargetSign = (x = 0, y = 0, z = 0, rotX = 0) => {
+  z += 1100;
+  const factor = Math.abs(rotX) < 3 * DEGREE ? 0 : -Math.tan(rotX);
+  y += 1300 * factor;
+
+  const geometry = new RingBufferGeometry(10, 15, 32);
+  const material = new MeshBasicMaterial({ color: "red", side: DoubleSide });
+  const target = new Mesh(geometry, material);
+  target.position.set(x, y, z);
+  target.rotateX(rotX);
+  return target;
 };
 
 export default createLaser;

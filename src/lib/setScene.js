@@ -4,12 +4,14 @@ import { NUMBER_OF_CONTENTS_TO_LOAD } from "../config/content";
 import myCam from "./camera";
 import cubeTexture from "./cubeTexture";
 import keyboardControls, { fire } from "./keyboardControls";
+import { createTargetSign } from "./laser/laser";
 import createLights from "./lights";
 import modelLoader from "./modelLoader";
 import moveLasers from "./movement/lasers";
 import moveLights from "./movement/lights";
 import moveShip from "./movement/main";
 import moveOthers from "./movement/others";
+import moveTargetSign from "./movement/targetSign";
 import createR from "./renderer";
 import setOrbitControls from "./setOrbitControls";
 import soundLoader, { laserSound } from "./sounds/soundLoader";
@@ -50,6 +52,10 @@ const setScene = (appenderFunc, dispatch, actions) => {
   //Add stars
   const stars = setStars(scene);
 
+  //Add targetSign
+  const targetSign = createTargetSign();
+  scene.add(targetSign);
+
   const addLaser = () => {
     if (models.main) {
       lasersInGame.push(
@@ -69,9 +75,11 @@ const setScene = (appenderFunc, dispatch, actions) => {
   //animate
   const animate = () => {
     if (isFiring && canFire) addLaser();
-    moveLasers(lasersInGame, scene);
     moveLights(p1, p2);
+    moveTargetSign(targetSign, models.main);
+    moveLasers(lasersInGame, scene);
     moveShip(models.main, movement, p1, p2, camera, controls);
+    // moveTargetSign(targetSign, models.main);
     moveOthers(models.others);
     animateStars(stars);
     renderer.render(scene, camera);
@@ -128,7 +136,7 @@ const setScene = (appenderFunc, dispatch, actions) => {
       isFiring = true;
       return;
     }
-    console.log(code, movement.code);
+
     if (code === movement.code && movement.isMoving) return;
     const result = keyboardControls(
       code,

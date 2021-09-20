@@ -31,13 +31,13 @@ const moveShip = (model, movement, p1, p2, camera, controls) => {
     if (movement.notRotAxis) {
       let notAxisAngle = model.rotation[movement.notRotAxis];
       const notAxisdirection = notAxisAngle > 0 ? 1 : -1;
-      if (Math.abs(notAxisAngle) < 2 * DEGREE)
+      if (Math.abs(notAxisAngle) < 4 * DEGREE)
         model.rotation[movement.notRotAxis] = 0;
       else
-        model.rotation[movement.notRotAxis] += DEGREE * notAxisdirection * -1;
+        model.rotation[movement.notRotAxis] += DEGREE * notAxisdirection * -6;
     }
 
-    if (Math.abs(angle) < 50 * DEGREE)
+    if (Math.abs(angle + DEGREE * movement.rotDirection) < 50 * DEGREE)
       model.rotation[movement.rotationAxis] += DEGREE * movement.rotDirection;
   };
 

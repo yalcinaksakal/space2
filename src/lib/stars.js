@@ -29,7 +29,7 @@ export function animateStars(stars) {
   let star;
   for (let i = 0; i < stars.length; i++) {
     star = stars[i];
-    star.position.z -= i / 50;
+    star.position.z -= i / 150;
     if (star.position.z < -2000) star.position.z += 6000;
   }
 }
