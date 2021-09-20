@@ -26,6 +26,7 @@ const setScene = (appenderFunc, dispatch, actions) => {
     speed: 0,
     rotDirection: 0,
     rotationAxis: "",
+    notRotAxis: "",
   };
   let canFire = true;
   let isFiring = false;
@@ -39,11 +40,18 @@ const setScene = (appenderFunc, dispatch, actions) => {
   const lights = createLights();
   const { p1, p2 } = lights;
   Object.values(lights).forEach(light => scene.add(light));
+
+  //domEL
+  const { domElement } = renderer;
+
+  //add controls
+  const controls = setOrbitControls(camera, domElement);
+
   //Add stars
   const stars = setStars(scene);
 
   const addLaser = () => {
-    if (models.main && canFire) {
+    if (models.main) {
       lasersInGame.push(
         fire(
           models.main.position,
@@ -63,14 +71,12 @@ const setScene = (appenderFunc, dispatch, actions) => {
     if (isFiring && canFire) addLaser();
     moveLasers(lasersInGame, scene);
     moveLights(p1, p2);
-    moveShip(models.main, movement);
+    moveShip(models.main, movement, p1, p2, camera, controls);
     moveOthers(models.others);
     animateStars(stars);
     renderer.render(scene, camera);
     controls.update();
   };
-
-  const { domElement } = renderer;
 
   //background, texture onLoad calls appender
   dispatch(actions.setMsg("Loading textures"));
@@ -110,9 +116,6 @@ const setScene = (appenderFunc, dispatch, actions) => {
   dispatch(actions.setMsg("Loading sounds"));
   soundLoader(onSound);
 
-  //add controls
-  const controls = setOrbitControls(camera, domElement);
-
   //onResize
   const onResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -125,7 +128,15 @@ const setScene = (appenderFunc, dispatch, actions) => {
       isFiring = true;
       return;
     }
-    const result = keyboardControls(code, controls, models.main, movement.code);
+    console.log(code, movement.code);
+    if (code === movement.code && movement.isMoving) return;
+    const result = keyboardControls(
+      code,
+      controls,
+      models.main,
+      camera,
+      movement.isMoving
+    );
     if (result) movement = result;
   };
   const keyUpHandler = ({ code }) => {

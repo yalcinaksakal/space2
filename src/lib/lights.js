@@ -16,10 +16,10 @@ const createLights = () => {
   light.shadow.camera.top = 200;
   light.shadow.camera.bottom = -200;
 
-  const plight = new PointLight("white", 0.5);
-  plight.position.set(-100, 10, 0);
-  const plight2 = new PointLight("red", 0.5);
-  plight2.position.set(100, 10, 0);
+  const plight = new PointLight("white", 0.4);
+  plight.position.set(-100, 0, 0);
+  const plight2 = new PointLight("red", 0.4);
+  plight2.position.set(100, 0, 0);
 
   return {
     d: light,

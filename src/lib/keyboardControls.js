@@ -1,33 +1,21 @@
 import { PositionalAudio, Vector3 } from "three";
-import { DEGREE, MOVEMENT_MAP as movementMap } from "../config/content";
+import { rotationMap, MOVEMENT_MAP as movementMap } from "../config/content";
 import createLaser from "./laser/laser";
 
-const keyboardControls = (code, controls, model, currentCode) => {
-  if (code === "KeyR") {
-    controls.reset();
-    // if (model) model.position.set(0, 0, 0);
-    return;
-  }
+const keyboardControls = (code, controls, model, cam, isMoving) => {
   if (!model) return;
   //look directions.
-  switch (code) {
-    case "KeyW":
-      controls.rotate(90 * DEGREE, false);
-      return;
-    case "KeyS":
-      controls.rotate(-90 * DEGREE, false);
-      return;
-    case "KeyA":
-      controls.rotate(90 * DEGREE, true);
-      return;
-    case "KeyD":
-      controls.rotate(-90 * DEGREE, true);
-      return;
-    default:
-      break;
+  if (["KeyW", "KeyS", "KeyA", "KeyD"].includes(code)) {
+    const { x, y, z } = model.position;
+    cam.position.set(x, y + 300, z - 1200);
+    controls.target.set(x, y, z);
+    const { degree, isHorizantal } = rotationMap[code];
+    controls.rotate(degree, isHorizantal);
+    controls.update();
+    return;
   }
   if (!movementMap[code]) return;
-  if (currentCode !== code) model.rotation.set(0, 0, 0);
+  // if (currentCode !== code) model.rotation.set(0, 0, 0);
   return { ...movementMap[code] };
 };
 

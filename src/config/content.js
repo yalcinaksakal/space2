@@ -8,6 +8,7 @@ export const MOVEMENT_MAP = {
     speed: 10,
     rotationAxis: "x",
     rotDirection: -1,
+    notRotAxis: "z",
   },
   ArrowDown: {
     code: "ArrowDown",
@@ -16,6 +17,7 @@ export const MOVEMENT_MAP = {
     speed: -10,
     rotationAxis: "x",
     rotDirection: 1,
+    notRotAxis: "z",
   },
   ArrowRight: {
     code: "ArrowRight",
@@ -24,6 +26,7 @@ export const MOVEMENT_MAP = {
     speed: -10,
     rotationAxis: "z",
     rotDirection: 1,
+    notRotAxis: "x",
   },
   ArrowLeft: {
     code: "ArrowLeft",
@@ -32,5 +35,31 @@ export const MOVEMENT_MAP = {
     speed: 10,
     rotationAxis: "z",
     rotDirection: -1,
+    notRotAxis: "x",
   },
+  KeyQ: {
+    code: "KeyQ",
+    isMoving: true,
+    axis: "z",
+    speed: -10,
+    rotationAxis: null,
+    rotDirection: 0,
+    notRotAxis: null,
+  },
+  KeyE: {
+    code: "KeyE",
+    isMoving: true,
+    axis: "z",
+    speed: 10,
+    rotationAxis: null,
+    rotDirection: 0,
+    notRotAxis: null,
+  },
+};
+
+export const rotationMap = {
+  KeyW: { degree: 90 * DEGREE, isHorizantal: false },
+  KeyS: { degree: -90 * DEGREE, isHorizantal: false },
+  KeyA: { degree: 90 * DEGREE, isHorizantal: true },
+  KeyD: { degree: -90 * DEGREE, isHorizantal: true },
 };
