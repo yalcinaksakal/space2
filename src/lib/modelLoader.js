@@ -67,7 +67,7 @@ const modelLoader = (
       gltf,
       "others",
       0.3,
-      { x: 0, y: -100, z: 7500 },
+      { x: 0, y: 0, z: 7500 },
       { rx: 0, ry: 180, rz: 0 }
     )
   );

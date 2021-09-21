@@ -27,15 +27,15 @@ const createLaser = (x, y, z, scene, rotX) => {
 };
 
 export const createTargetSign = (x = 0, y = 0, z = 0, rotX = 0) => {
-  z += 1100;
-  const factor = Math.abs(rotX) < 3 * DEGREE ? 0 : -Math.tan(rotX);
-  y += 1300 * factor;
+  z += 5000;
+  // const factor = Math.abs(rotX) < 3 * DEGREE ? 0 : -Math.tan(rotX);
+  // y += 5200 * factor;
 
-  const geometry = new RingBufferGeometry(10, 15, 32);
+  const geometry = new RingBufferGeometry(20, 30, 32);
   const material = new MeshBasicMaterial({ color: "red", side: DoubleSide });
   const target = new Mesh(geometry, material);
   target.position.set(x, y, z);
-  target.rotateX(rotX);
+  // target.rotateX(rotX);
   return target;
 };
 

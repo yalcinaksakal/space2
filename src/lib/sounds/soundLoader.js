@@ -15,4 +15,10 @@ export const laserSound = onLoad => {
   });
 };
 
+export const explosionSound = onLoad => {
+  audioLoader.load("sounds/bomb.m4a", buffer => {
+    onLoad(buffer);
+  });
+};
+
 export default soundLoader;

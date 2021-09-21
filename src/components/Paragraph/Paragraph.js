@@ -2,6 +2,8 @@ import styles from "./p.module.css";
 
 const Paragraph = () => (
   <p className={styles.p}>
+    Shoot: Space
+    <br />
     Move: Arrow keys, Q and E
     <br />
     Rotate cam: WASD, left click

@@ -3,6 +3,9 @@ import { NUMBER_OF_CONTENTS_TO_LOAD } from "../config/content";
 
 import myCam from "./camera";
 import cubeTexture from "./cubeTexture";
+import { updateExplosion } from "./explode";
+
+import hitChecker from "./hitCheck";
 import keyboardControls, { fire } from "./keyboardControls";
 import { createTargetSign } from "./laser/laser";
 import createLights from "./lights";
@@ -14,12 +17,12 @@ import moveOthers from "./movement/others";
 import moveTargetSign from "./movement/targetSign";
 import createR from "./renderer";
 import setOrbitControls from "./setOrbitControls";
-import soundLoader, { laserSound } from "./sounds/soundLoader";
+import soundLoader, { explosionSound, laserSound } from "./sounds/soundLoader";
 import setStars, { animateStars } from "./stars";
 
 const setScene = (appenderFunc, dispatch, actions) => {
   const loadedContent = [];
-  const lasersInGame = [];
+  let lasersInGame = [];
   const models = { main: null, others: [] };
   let movement = {
     code: "",
@@ -75,11 +78,26 @@ const setScene = (appenderFunc, dispatch, actions) => {
   //animate
   const animate = () => {
     if (isFiring && canFire) addLaser();
+    if (lasersInGame.length && models.others.length) {
+      const result = hitChecker(
+        lasersInGame,
+        models.others,
+        scene,
+        explodeSound,
+        listener
+      );
+
+      if (result !== -1) {
+        scene.remove(lasersInGame[result].laser);
+        lasersInGame = [...lasersInGame.filter((l, i) => i !== result)];
+      }
+    }
+    updateExplosion(scene);
     moveLights(p1, p2);
     moveTargetSign(targetSign, models.main);
     moveLasers(lasersInGame, scene);
     moveShip(models.main, movement, p1, p2, camera, controls);
-    // moveTargetSign(targetSign, models.main);
+
     moveOthers(models.others);
     animateStars(stars);
     renderer.render(scene, camera);
@@ -101,6 +119,10 @@ const setScene = (appenderFunc, dispatch, actions) => {
   let laserS;
   const onLSound = b => (laserS = b);
   laserSound(onLSound);
+  let explodeSound;
+  const onExpSound = b => (explodeSound = b);
+  explosionSound(onExpSound);
+
   const onSound = soundBuf => {
     dispatch(actions.setMsg("Sounds done"));
     loadedContent.push("sounds");
