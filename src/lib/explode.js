@@ -47,14 +47,10 @@ const createExplosion = (model, scene, sound, listener) => {
   audio.play();
 
   scene.add(group);
-  setTimeout(
-    () =>
-      model.position.set(
-        Math.random() * 2000 - 1000,
-        Math.random() * 900 - 500,
-        10000
-      ),
-    500
+  model.position.set(
+    Math.random() * 2000 - 1000,
+    Math.random() * 900 - 500,
+    10000
   );
 };
 
