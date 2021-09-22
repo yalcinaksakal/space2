@@ -6,7 +6,7 @@ const Paragraph = () => (
     <br />
     Move: Arrows, Q and E
     <br />
-    Rotate cam: WASD, left click
+    Rotate cam: Left click
     <br />
     Pan cam: Right click
     <br />
