@@ -50,10 +50,8 @@ const createExplosion = (model, scene, sound, listener) => {
   setTimeout(
     () =>
       model.position.set(
-        // Math.random() * 1800 - 900,
-        // Math.random() * 800 - 400,
-        0,
-        0,
+        Math.random() * 2000 - 1000,
+        Math.random() * 900 - 500,
         10000
       ),
     500

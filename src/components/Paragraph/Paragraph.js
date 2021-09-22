@@ -4,7 +4,7 @@ const Paragraph = () => (
   <p className={styles.p}>
     Shoot: Space
     <br />
-    Move: Arrow keys, Q and E
+    Move: Arrows, Q and E
     <br />
     Rotate cam: WASD, left click
     <br />
