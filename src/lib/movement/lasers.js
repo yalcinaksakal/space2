@@ -6,7 +6,7 @@ const moveLasers = (lasers, scene) => {
   }
 
   let i = 0;
-  while (i < lasers.length && lasers[i].laser.position.z > 7000) {
+  while (i < lasers.length && lasers[i].laser.position.z > 5000) {
     scene.remove(lasers[i].laser);
     lasers.shift();
     i++;

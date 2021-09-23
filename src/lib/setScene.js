@@ -93,7 +93,7 @@ const setScene = (appenderFunc, dispatch, actions) => {
       }
     }
     updateExplosion(scene);
-    moveLights(p1, p2);
+    // moveLights(p1, p2);
     moveTargetSign(targetSign, models.main, models.others[0]);
     moveLasers(lasersInGame, scene);
     moveShip(models.main, movement, p1, p2, camera, controls);
